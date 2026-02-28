@@ -10,20 +10,16 @@ export default function BookModal({ isOpen, onClose }: BookModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/95 backdrop-blur-xl"
-          />
-          
+        <div 
+          className="fixed inset-0 z-[100] overflow-y-auto bg-bg/80 backdrop-blur-md flex items-center justify-center p-4 py-12 md:py-20"
+          onClick={onClose}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="relative w-full max-w-4xl max-h-[90vh] bg-bg border border-accent/20 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-4xl max-h-[90vh] bg-[#1A1A1A] border border-accent/30 rounded-3xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)]"
           >
             {/* Header */}
             <div className="p-6 md:px-12 md:py-8 border-b border-accent/10 flex items-center justify-between bg-bg/50 backdrop-blur-sm sticky top-0 z-10">
