@@ -26,26 +26,23 @@ export default function SubscriptionModal({ isOpen, onClose }: SubscriptionModal
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/90 backdrop-blur-md"
-          />
-          
+        <div 
+          className="fixed inset-0 z-[100] overflow-y-auto bg-bg/80 backdrop-blur-md flex items-center justify-center p-4 py-20"
+          onClick={onClose}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-md bg-bg border border-accent/20 rounded-3xl p-8 md:p-10 shadow-2xl text-center"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-md bg-[#1A1A1A] border border-accent/30 rounded-3xl p-8 md:p-10 shadow-[0_0_50px_rgba(0,0,0,0.5)] text-center"
           >
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 hover:bg-accent/10 rounded-full transition-colors text-accent"
+              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 hover:bg-accent/10 rounded-full transition-colors text-accent"
+              aria-label="Close"
             >
-              <X size={20} />
+              <X size={24} />
             </button>
 
             {isSubmitted ? (
