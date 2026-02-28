@@ -10,20 +10,16 @@ export default function AuthorModal({ isOpen, onClose }: AuthorModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/90 backdrop-blur-md"
-          />
-          
+        <div 
+          className="fixed inset-0 z-[100] overflow-y-auto bg-bg/80 backdrop-blur-md flex items-center justify-center p-4 py-12 md:py-20"
+          onClick={onClose}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full max-w-2xl bg-bg border border-accent/20 rounded-3xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl bg-[#1A1A1A] border border-accent/30 rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]"
           >
             <div className="p-8 md:p-12">
               <div className="flex justify-between items-start mb-12">
