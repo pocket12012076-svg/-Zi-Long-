@@ -49,13 +49,13 @@ export default function App() {
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="order-2 lg:order-1">
               <span className="mono-label mb-6 block text-accent">The Persona</span>
-              <h2 className="text-[18px] font-serif font-bold mb-8">關於作家-子瓏</h2>
+              <h2 className="text-[18px] font-serif font-bold mb-8">關於作家—子瓏</h2>
               <div className="space-y-6 text-[18px] font-normal text-ink/70 leading-[1.8]">
                 <p>
-                  我是子瓏，26歲時獨自去日本生活兩年，28歲回國，30歲時意外出了小說，書名為:「傾聽我 接住我」。我是一位喜歡學習且樂於嘗試新事物的人，在我的世界觀裡，我追求冷靜且客觀的覺察。主張「人的行為皆具有目的性」來進行觀察和反思。
+                  26歲時獨自去日本生活兩年，28歲回國，30歲時意外出了小說，書名為:「傾聽我 接住我」。
                 </p>
                 <p>
-                  我是一個非討好型的人性觀察者。我負責聽見那些被憤怒、傷痛與社會期待所淹沒的、你內心最真實的聲音。
+                  我是一個「非討好型」的人性觀察者，喜歡學習且樂於嘗試新事物的人，在我的世界觀裡，我追求冷靜且客觀的覺察。主張「人的行為皆具有目的性」來進行觀察和反思。
                 </p>
               </div>
               
