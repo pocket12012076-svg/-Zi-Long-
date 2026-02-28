@@ -44,24 +44,6 @@ export default function App() {
       <main>
         <Hero />
         
-        {/* Quote Section */}
-        <section className="py-40 px-6 bg-accent/[0.02] border-y border-accent/10">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-              className="text-[28px] md:text-[36px] font-serif italic leading-[1.8] text-ink/90 font-medium"
-            >
-              「當你足夠了解自己，你將發現：在別人的劇本之外，你其實擁有更多選擇。」
-            </motion.p>
-          </div>
-        </section>
-
-        <Values />
-        
-        <Contact />
-        
         {/* About Section */}
         <section id="about" className="py-32 px-6 border-t border-accent/10">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -104,6 +86,24 @@ export default function App() {
           </div>
         </section>
 
+        {/* Quote Section */}
+        <section className="py-40 px-6 bg-accent/[0.02] border-y border-accent/10">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1.5 }}
+              className="text-[28px] md:text-[36px] font-serif italic leading-[1.8] text-ink/90 font-medium"
+            >
+              「當你足夠了解自己，你將發現：在別人的劇本之外，你其實擁有更多選擇。」
+            </motion.p>
+          </div>
+        </section>
+
+        <Values />
+        
+        <Contact />
+        
         {/* CTA Section */}
         <section className="py-40 px-6 text-center relative overflow-hidden border-t border-accent/10">
           <div className="absolute inset-0 bg-accent/[0.03] -z-10" />
