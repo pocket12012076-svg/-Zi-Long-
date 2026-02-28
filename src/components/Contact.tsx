@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { MinimalCat } from "./Icons";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -23,6 +23,38 @@ export default function Contact() {
     { title: "【認知解碼】", desc: "看穿暗示背後的真實動機。" },
     { title: "【情緒主權】", desc: "將被動的痛苦轉化為主動的察覺反射。" }
   ];
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error', message: string } | null>(null);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setFormData({ category: "", name: "", email: "", scenario: "" });
+      } else {
+        throw new Error(data.message || '送出失敗，請稍後再試。');
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: error instanceof Error ? error.message : '連線失敗，請檢查網路。' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="contact" className="relative py-32 px-6 bg-gradient-to-br from-bg to-[#22211F]">
@@ -50,7 +82,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="bg-bg/50 border border-accent/10 rounded-3xl p-8 md:p-12 backdrop-blur-sm"
         >
-          <form className="space-y-8">
+          <form className="space-y-8" onSubmit={handleSubmit}>
             {/* Category Dropdown */}
             <div>
               <label className="block mono-label text-accent mb-4 text-[18px]">1. 分類選項</label>
@@ -107,12 +139,18 @@ export default function Contact() {
             </div>
 
             <div className="pt-4 flex flex-col items-center gap-6">
+              {submitStatus && (
+                <div className={`text-sm font-serif ${submitStatus.type === 'success' ? 'text-emerald-500' : 'text-rose-500'}`}>
+                  {submitStatus.message}
+                </div>
+              )}
               <button 
                 type="submit"
-                className="group flex items-center gap-4 px-12 py-5 bg-accent text-bg rounded-full font-bold hover:scale-105 transition-all duration-300"
+                disabled={isSubmitting}
+                className="group flex items-center gap-4 px-12 py-5 bg-accent text-bg rounded-full font-bold hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100"
               >
                 <MinimalCat className="w-5 h-5" />
-                <span>送出聲音</span>
+                <span>{isSubmitting ? '傳送中...' : '送出聲音'}</span>
               </button>
               
               <p className="text-[18px] text-muted text-center max-w-md leading-relaxed">
