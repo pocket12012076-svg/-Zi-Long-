@@ -8,6 +8,7 @@ export default function Hero() {
   const [isBookOpen, setIsBookOpen] = useState(false);
 
   return (
+    <>
     <section className="relative min-h-screen flex flex-col justify-center px-6 pt-20 overflow-hidden">
       {/* Background Accents */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" />
@@ -48,9 +49,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <AuthorModal isOpen={isAuthorOpen} onClose={() => setIsAuthorOpen(false)} />
-        <BookModal isOpen={isBookOpen} onClose={() => setIsBookOpen(false)} />
-
         <div className="lg:col-span-4 mt-12 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -58,17 +56,24 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.2 }}
             className="relative aspect-[3/4] rounded-2xl overflow-hidden group border border-accent/10 bg-white/5"
           >
-            <img 
-              src="/hero_cat.jpg.png" 
-              alt="The Watcher - Black Cat"
-              className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-1000"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                // Fallback if image is not found
-                (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop";
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-40" />
+            <a 
+              href="https://www.books.com.tw/products/0010958872?sloc=main" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block w-full h-full"
+            >
+              <img 
+                src="/hero_cat.jpg.png" 
+                alt="The Watcher - Black Cat"
+                className="object-contain w-full h-full group-hover:scale-105 transition-transform duration-1000"
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  // Fallback if image is not found
+                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=800&auto=format&fit=crop";
+                }}
+              />
+            </a>
+            <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-40 pointer-events-none" />
           </motion.div>
         </div>
       </div>
@@ -83,5 +88,8 @@ export default function Hero() {
         <span className="mono-label text-accent">Scroll</span>
       </motion.div>
     </section>
+    <AuthorModal isOpen={isAuthorOpen} onClose={() => setIsAuthorOpen(false)} />
+    <BookModal isOpen={isBookOpen} onClose={() => setIsBookOpen(false)} />
+    </>
   );
 }
