@@ -259,19 +259,15 @@ export default function DialogueModal({ isOpen, onClose }: DialogueModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/95 backdrop-blur-xl"
-          />
-          
+        <div 
+          className="fixed inset-0 z-[100] overflow-y-auto bg-bg/80 backdrop-blur-md flex items-center justify-center p-0 md:p-4 md:py-12"
+          onClick={onClose}
+        >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            onClick={(e) => e.stopPropagation()}
             className={`relative w-full h-full md:h-[90vh] md:max-w-6xl bg-bg md:border md:border-accent/20 md:rounded-3xl overflow-hidden flex flex-col shadow-2xl transition-colors duration-1000 ${isPart2 ? 'bg-black' : 'bg-[#1A1A1A]'}`}
           >
             {/* Background Noise Overlay */}
@@ -404,7 +400,7 @@ export default function DialogueModal({ isOpen, onClose }: DialogueModalProps) {
                   </p>
                   <p className="text-ink/60 text-[18px] leading-[1.8] whitespace-pre-line">
                     這 24 則對話分為兩部。第一部【關於我如何成為作家的 10 個 QA】記錄了我創作和覺察的真實過程；第二部為進階版【子瓏的深度察覺筆記】。{"\n\n"}
-                    為了幫你找回失落的原初聲音，你可以由【子瓏的深度察覺筆記】 Q1 循序進入，剝離那些不屬於你的裝扮；或者利用「價值地圖」，在你需要的生存座標上，重新定義自己。
+                    為了幫你找回失落的原初聲音，你可以由【子瓏的深度察覺筆記】 Q1 循序進入，剝離那些不屬於你的裝扮；或者利用以下「價值地圖」，在你需要的生存座標上，重新定義自己。
                   </p>
                 </div>
 
