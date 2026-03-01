@@ -1,0 +1,7 @@
+// 關鍵渲染部分
+<div className="text-white text-[18px] md:text-[20px] leading-[1.8] font-serif" style={{ whiteSpace: 'pre-wrap' }}>
+  <span className="block text-[18px] font-serif text-accent/40 mb-4">{t.authorLabel}</span>
+  <div className="text-[#E0E0E0]">
+    {renderAnswer(d.a)}
+  </div>
+</div>
