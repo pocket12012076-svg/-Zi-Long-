@@ -3,11 +3,10 @@ import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { 
   Menu, X, Facebook, Instagram, AtSign, Globe, ChevronDown, 
   Shield, Eye, Filter, Zap, MessageSquareQuote, BellRing, CheckCircle2,
-  ArrowUp, ArrowRight, ExternalLink, ChevronRight, ChevronLeft
+  ArrowUp, ArrowRight, ExternalLink, ChevronRight, ChevronLeft, Send
 } from "lucide-react";
 
-// --- 預留 VALUE_TRANSLATIONS_DATA 變數 (下一輪補全) ---
-// 這裡預留了結構，確保骨架能正常讀取資料
+// --- 預留 VALUE_TRANSLATIONS_DATA 變數 (下一輪補全 24 則對話數據) ---
 const VALUE_TRANSLATIONS_DATA: any = {
   zh: { author: {}, book: {}, values: {}, dialogues: {} },
   en: { author: {}, book: {}, values: {}, dialogues: {} },
@@ -25,7 +24,7 @@ const MinimalCat = ({ className }: { className?: string }) => (
   </svg>
 );
 
-// --- UI 基礎翻譯內容 ---
+// --- UI 基礎翻譯內容 (含像素級還原規格文字) ---
 const UI_CONTENT = {
   zh: {
     nav: { contact: "聯絡我們", subscribe: "訂閱子瓏", about: "關於作家" },
@@ -42,6 +41,7 @@ const UI_CONTENT = {
         "26歲時獨自去日本生活兩年，28歲回國，30歲時意外出了小說，書名為:「傾聽我 接住我」。",
         "我是一個「非討好型」的人性觀察者，喜歡學習且樂於嘗試新事物的人，在我的世界觀裡，我追求冷靜且客觀的覺察。主張「人的行為皆具有目的性」來進行觀察和反思。"
       ],
+      transition: "當你足夠了解自己，你將發現：在別人的劇本之外，你其實擁有更多選擇。",
       stats: { readers: "Monthly Readers", cases: "Case Studies" }
     },
     values: {
@@ -58,17 +58,17 @@ const UI_CONTENT = {
     contact: {
       title: "試著讓我接住你的聲音",
       quote: "「合作是價值的對等交換。為了確保我們的時間都用在最有意義的察覺與建構上，請在來信前確認你的意圖。」",
-      labels: { category: "1. 分類選項", name: "2. 姓名", email: "3. 電子信箱", content: "4. 內容" },
-      placeholders: { category: "請選擇合作或諮詢類別", name: "你的稱呼", content: "在此輸入你的描述...", email: "email@example.com" },
+      labels: { category: "1. 項目分類選單", name: "2. 姓名", email: "3. 電子信箱", content: "4. 內容" },
+      categories: ["合作邀約", "讀者回饋", "授權洽談", "其他諮詢"],
+      placeholders: { category: "請選擇類別", name: "你的稱呼", content: "在此輸入描述...", email: "email@example.com" },
       submit: "送出聲音",
       footer: "「我會認真傾聽每一個被淹沒的聲音。通常會在 3 個工作天內，由我的理性做出回應。」"
     },
     footer: {
       desc: "理性的邊界建構者。致力於在紛擾的人性中，為你聽見被淹沒的聲音，找回你的選擇權。",
       subTitle: "Subscription",
-      subDesc: "訂閱《人性觀察週報》，每週一次理性覺察筆記。我們將深入探討認知主權與邊界建構。",
+      subDesc: "訂閱《人性觀察週報》，每週一次理性覺察筆記。",
       subBtn: "訂閱週報",
-      placeholder: "Your email",
       rights: "© 2024 Zi Long. All Rights Reserved."
     }
   },
@@ -87,6 +87,7 @@ const UI_CONTENT = {
         "Lived alone in Japan for two years at age 26, returned home at 28, and unexpectedly published a novel titled 'Listen to Me, Catch Me' at 30.",
         "I am a 'non-people-pleasing' observer of humanity, someone who loves learning and is eager to try new things."
       ],
+      transition: "When you understand yourself enough, you will discover: outside of others' scripts, you actually have more choices.",
       stats: { readers: "Monthly Readers", cases: "Case Studies" }
     },
     values: {
@@ -103,7 +104,8 @@ const UI_CONTENT = {
     contact: {
       title: "Let Me Catch Your Voice",
       quote: "\"Collaboration is an equal exchange of value. Please confirm your intention before writing.\"",
-      labels: { category: "1. Category", name: "2. Name", email: "3. Email", content: "4. Content" },
+      labels: { category: "1. Category Select", name: "2. Name", email: "3. Email", content: "4. Content" },
+      categories: ["Collaboration", "Feedback", "Licensing", "Other"],
       placeholders: { category: "Select category", name: "Your name", content: "Enter description...", email: "email@example.com" },
       submit: "Send Voice",
       footer: "\"I will listen carefully to every submerged voice. I usually respond within 3 business days.\""
@@ -113,7 +115,6 @@ const UI_CONTENT = {
       subTitle: "Subscription",
       subDesc: "Subscribe to the 'Humanity Observation Weekly'.",
       subBtn: "Subscribe",
-      placeholder: "Your email",
       rights: "© 2024 Zi Long. All Rights Reserved."
     }
   },
@@ -132,6 +133,7 @@ const UI_CONTENT = {
         "26歳の時に単身で日本へ渡り2年間生活し、28歳で帰國。30歳の時に思いがけず小說『傾聴我 接住我』を出版しました。",
         "私は「非迎合型」の人間観察者であり、学ぶことが好きで新しいことに挑戦することに意欲的な人間です。"
       ],
+      transition: "自分自身を十分に理解したとき、他人の台本の外に、実はもっと多くの選択肢があることに気づくでしょう。",
       stats: { readers: "月間読者數", cases: "ケーススタディ" }
     },
     values: {
@@ -139,16 +141,17 @@ const UI_CONTENT = {
       noteTitle: "【子瓏の深度察覚ノート：24の生存対話】",
       noteDesc: "他人の台本の中では、あなたは単に名前を付けられた登場人物に過ぎません。この24の対話は二部構成です。",
       cards: [
-        { id: "01", title: "認知デカップリング術", quote: "それが他人の見たいものだと気づいたとき、あなたはその上着を脱ぐ権利があります。", tags: ["投影", "自己認識"] },
+        { id: "01", title: "認知デカップリング術", quote: "それが他人の見たいものだと気づいたとき、あなたはその上着を脫ぐ権利があります。", tags: ["投影", "自己認識"] },
         { id: "02", title: "暗示フィルタリング", quote: "助けを求める力さえないような傷があります。自分自身を十分に理解したとき、外部からの暗示はあなたを傷つけることはできません。", tags: ["主権", "境界構築"] },
         { id: "03", title: "理性的キャッチ", quote: "「私はダメだ」という心理戦略を採用し、感情はあなたを操作する力を失います。", tags: ["癒やし", "理性"] },
-        { id: "04", title: "生存効率", desc: "自分を律することこそが、この社会への最大の貢献です。", tags: ["効率", "冷静"] }
+        { id: "04", title: "生存効率", quote: "自分を律することこそが、この社会への最大の貢献です。", tags: ["効率", "冷静"] }
       ]
     },
     contact: {
       title: "あなたの声を聴き届けさせてください",
       quote: "「コラボレーションは価値の対等な交換です。ご連絡の前にご自身の意圖をご確認ください。」",
-      labels: { category: "1. カテゴリ", name: "2. お名前", email: "3. メールアドレス", content: "4. 内容" },
+      labels: { category: "1. 項目分類メニュー", name: "2. お名前", email: "3. メールアドレス", content: "4. 内容" },
+      categories: ["コラボレーション", "フィードバック", "ライセンス", "その他"],
       placeholders: { category: "カテゴリを選択", name: "お名前", content: "内容を入力...", email: "email@example.com" },
       submit: "声を送る",
       footer: "「かき消されたすべての声に真摯に耳を傾けます。通常、3営業日以内に理性的にお返事いたします。」"
@@ -158,7 +161,6 @@ const UI_CONTENT = {
       subTitle: "購読",
       subDesc: "『人間性観察週報』を購読して、週に一度の理性的気づきノートを受け取りましょう。",
       subBtn: "購読する",
-      placeholder: "メールアドレス",
       rights: "© 2024 Zi Long. All Rights Reserved."
     }
   }
@@ -176,7 +178,7 @@ const AuthorModal = ({ isOpen, onClose, lang }: any) => {
             <button onClick={onClose} className="absolute top-6 right-6 text-accent hover:bg-accent/10 p-2 rounded-full"><X size={24} /></button>
             <h3 className="text-accent mono-label mb-2">{data.label || "Author"}</h3>
             <h2 className="text-2xl font-serif font-bold text-white mb-8">{data.name || "Zi Long"}</h2>
-            <div className="space-y-6 text-white/80 leading-loose text-lg">
+            <div className="space-y-6 text-white/80 leading-loose text-lg" style={{ whiteSpace: 'pre-wrap' }}>
               <p className="italic text-accent/80 border-l-2 border-accent/20 pl-6">{data.birth}</p>
               <p>{data.desc}</p>
             </div>
@@ -199,7 +201,7 @@ const BookModal = ({ isOpen, onClose, lang }: any) => {
               <div><h3 className="text-accent mono-label mb-1">{data.label || "Book"}</h3><h2 className="text-xl font-serif font-bold text-white">{data.title || "Listen to Me"}</h2></div>
               <button onClick={onClose} className="text-accent p-2 hover:bg-accent/10 rounded-full"><X size={24} /></button>
             </div>
-            <div className="flex-1 overflow-y-auto p-8 md:p-12 space-y-12 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto p-8 md:p-12 space-y-12 custom-scrollbar" style={{ whiteSpace: 'pre-wrap' }}>
               <section>
                 <h4 className="text-accent font-bold mb-6 border-b border-accent/10 pb-2 inline-block">{data.introTitle || "Intro"}</h4>
                 <div className="space-y-6 text-white/80 leading-loose">
@@ -237,22 +239,34 @@ const DialogueModal = ({ isOpen, onClose, id, lang, onNext }: any) => {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 30 }} onClick={e => e.stopPropagation()} className="relative w-full max-w-5xl max-h-[90vh] bg-bg border border-accent/20 rounded-3xl overflow-hidden flex flex-col shadow-2xl">
             <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
               {/* TOC Sidebar */}
-              <div className="hidden md:block w-64 border-r border-accent/10 bg-accent/[0.02] overflow-y-auto custom-scrollbar p-6">
-                <span className="mono-label mb-6 block text-accent/60">Questions</span>
-                <div className="space-y-2">
-                  {allIds.map((qid) => (
-                    <button key={qid} onClick={() => onNext(qid)} className={`w-full text-left text-xs p-2 rounded transition-colors ${id === qid ? 'bg-accent text-bg font-bold' : 'text-white/40 hover:bg-accent/5 hover:text-accent'}`}>
-                      {qid}. {dialogues[qid].title}
-                    </button>
-                  ))}
+              <div className="hidden md:block w-72 border-r border-accent/10 bg-accent/[0.02] overflow-y-auto custom-scrollbar p-6">
+                <div className="mb-8">
+                  <span className="mono-label mb-4 block text-accent/60">【關於我如何成為作家的 10 個 QA】</span>
+                  <div className="space-y-1">
+                    {allIds.slice(0, 10).map((qid) => (
+                      <button key={qid} onClick={() => onNext(qid)} className={`w-full text-left text-[11px] p-2 rounded transition-colors ${id === qid ? 'bg-accent text-bg font-bold' : 'text-white/40 hover:bg-accent/5 hover:text-accent'}`}>
+                        {qid}. {dialogues[qid]?.title || qid}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <span className="mono-label mb-4 block text-accent/60">【子瓏的深度察覺筆記】</span>
+                  <div className="space-y-1">
+                    {allIds.slice(10).map((qid) => (
+                      <button key={qid} onClick={() => onNext(qid)} className={`w-full text-left text-[11px] p-2 rounded transition-colors ${id === qid ? 'bg-accent text-bg font-bold' : 'text-white/40 hover:bg-accent/5 hover:text-accent'}`}>
+                        {qid}. {dialogues[qid]?.title || qid}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
               {/* Content Area */}
               <div className="flex-1 overflow-y-auto p-8 md:p-16 relative custom-scrollbar">
                 <button onClick={onClose} className="absolute top-8 right-8 text-muted hover:text-accent p-2"><X size={28} /></button>
                 <div className="flex items-center gap-3 mb-8"><div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent"><MessageSquareQuote size={20} /></div><span className="mono-label">{content.title}</span></div>
-                <h2 className="text-2xl md:text-3xl mb-12 leading-relaxed text-white font-serif">{content.q}</h2>
-                <div className="flex gap-6 mb-12"><div className="w-px bg-accent/20 shrink-0" /><div className="text-lg md:text-xl text-white/80 leading-loose whitespace-pre-wrap">{content.a}</div></div>
+                <h2 className="text-2xl md:text-3xl mb-12 leading-relaxed text-white font-serif" style={{ whiteSpace: 'pre-wrap' }}>{content.q}</h2>
+                <div className="flex gap-6 mb-12"><div className="w-px bg-accent/20 shrink-0" /><div className="text-lg md:text-xl text-white/80 leading-loose whitespace-pre-wrap" style={{ whiteSpace: 'pre-wrap' }}>{content.a}</div></div>
                 {/* Next Button */}
                 {currentIndex < allIds.length - 1 && (
                   <div className="flex justify-end">
@@ -284,7 +298,7 @@ const ValueDetailModal = ({ isOpen, onClose, title, content, lang }: any) => (
                   {section.qa.map((item: any, qIdx: number) => (
                     <div key={qIdx} className="space-y-4">
                       <div className="flex gap-4"><span className="text-accent/40 font-bold font-mono">{item.id}</span><h4 className="text-white font-serif text-lg">{item.q}</h4></div>
-                      <div className="pl-10 border-l border-accent/10"><p className="text-white/70 leading-relaxed text-lg whitespace-pre-line">{item.a}</p></div>
+                      <div className="pl-10 border-l border-accent/10"><p className="text-white/70 leading-relaxed text-lg whitespace-pre-line" style={{ whiteSpace: 'pre-wrap' }}>{item.a}</p></div>
                     </div>
                   ))}
                 </div>
@@ -419,30 +433,44 @@ export default function App() {
           </div>
         </section>
 
-        {/* About Section */}
+        {/* About Section - 像素級還原佈局 */}
         <section id="about" className="py-32 px-6 border-t border-accent/10">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="order-2 lg:order-1">
-              <span className="mono-label mb-6 block text-accent">{t.about.label}</span>
-              <h2 className="text-[28px] md:text-[32px] font-serif font-bold mb-8 text-white">{t.about.title}</h2>
-              <div className="space-y-6 text-white/70 leading-[1.8] text-lg text-justify">
-                {t.about.text.map((p, i) => <p key={i}>{p}</p>)}
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-col lg:flex-row gap-20 items-center">
+              <div className="flex-1 order-2 lg:order-1">
+                <div className="flex items-center gap-6 mb-8">
+                  <h2 className="text-[28px] md:text-[32px] font-serif font-bold text-white">{t.about.title}</h2>
+                  <div className="hidden md:block w-24 h-px bg-accent/30" />
+                </div>
+                <div className="space-y-6 text-white/70 leading-[1.8] text-lg text-justify" style={{ whiteSpace: 'pre-wrap' }}>
+                  {t.about.text.map((p, i) => <p key={i}>{p}</p>)}
+                </div>
+                {/* 關鍵轉折語 */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  className="mt-12 py-6 border-y border-accent/10"
+                >
+                  <p className="text-accent font-serif italic text-xl md:text-2xl text-center lg:text-left leading-relaxed">
+                    {t.about.transition}
+                  </p>
+                </motion.div>
+                <div className="mt-12 flex gap-12">
+                  <div><p className="text-4xl font-serif font-bold text-accent">100k+</p><p className="mono-label text-accent/60">{t.about.stats.readers}</p></div>
+                  <div><p className="text-4xl font-serif font-bold text-accent">500+</p><p className="mono-label text-accent/60">{t.about.stats.cases}</p></div>
+                </div>
               </div>
-              <div className="mt-12 flex gap-12">
-                <div><p className="text-4xl font-serif font-bold text-accent">100k+</p><p className="mono-label text-accent/60">{t.about.stats.readers}</p></div>
-                <div><p className="text-4xl font-serif font-bold text-accent">500+</p><p className="mono-label text-accent/60">{t.about.stats.cases}</p></div>
-              </div>
-            </div>
-            <div className="order-1 lg:order-2 relative aspect-square max-w-md mx-auto lg:max-w-none">
-              <div className="absolute inset-0 border border-accent/10 rounded-full animate-[spin_30s_linear_infinite]" />
-              <div className="absolute inset-12 rounded-full overflow-hidden border border-accent/20 shadow-2xl">
-                <img src="/作者_潛水.jpg.jpg" alt="Author" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <div className="flex-1 order-1 lg:order-2 relative aspect-square max-w-md mx-auto lg:max-w-none">
+                <div className="absolute inset-0 border border-accent/10 rounded-full animate-[spin_30s_linear_infinite]" />
+                <div className="absolute inset-12 rounded-full overflow-hidden border border-accent/20 shadow-2xl">
+                  <img src="/作者_潛水.jpg.jpg" alt="Author" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Values Section */}
+        {/* Values Section - 金句外顯 */}
         <section id="values" className="py-32 px-6 border-y border-accent/10">
           <div className="max-w-7xl mx-auto">
             <div className="max-w-2xl mb-20">
@@ -462,8 +490,11 @@ export default function App() {
                       <div className="p-4 rounded-2xl bg-accent/5 text-accent group-hover:bg-accent group-hover:text-bg transition-all"><Icon size={28} /></div>
                       <span className="font-mono text-4xl opacity-10 text-accent group-hover:opacity-30 transition-opacity">{card.id}</span>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-accent">{card.title}</h3>
-                    <p className="text-white/80 leading-relaxed mb-8 text-lg italic border-l-2 border-accent/20 pl-6 group-hover:border-accent transition-colors">{card.quote}</p>
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 text-accent">{card.title}</h3>
+                    {/* 金句外顯 */}
+                    <p className="text-white font-serif italic text-lg mb-8 leading-relaxed border-l-2 border-accent pl-6" style={{ whiteSpace: 'pre-wrap' }}>
+                      {card.quote}
+                    </p>
                     <div className="flex flex-wrap gap-2">{card.tags.map(tag => <span key={tag} className="text-[10px] uppercase tracking-wider px-3 py-1 border border-accent/20 rounded-full text-accent/60">{tag}</span>)}</div>
                     <div className="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 transition-opacity text-accent"><ArrowRight size={24} /></div>
                   </motion.div>
@@ -473,42 +504,61 @@ export default function App() {
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* Contact Section - TOP 按鈕精確定位 */}
         <section id="contact" className="py-32 px-6 bg-accent/[0.02]">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-[32px] font-serif font-bold mb-8 text-accent">{t.contact.title}</h2>
             <p className="text-white/60 italic mb-16 text-lg max-w-2xl mx-auto">{t.contact.quote}</p>
             <form className="space-y-8 text-left max-w-2xl mx-auto" onSubmit={(e) => e.preventDefault()}>
+              {/* 項目分類選單與 TOP 按鈕水平並行 */}
+              <div className="flex items-end gap-4">
+                <div className="flex-1">
+                  <label className="block mono-label text-accent mb-4">{t.contact.labels.category}</label>
+                  <div className="relative">
+                    <select className="w-full bg-accent/5 border border-accent/10 rounded-xl px-6 py-4 text-white outline-none focus:border-accent/30 transition-colors appearance-none cursor-pointer">
+                      <option value="" disabled selected>{t.contact.placeholders.category}</option>
+                      {t.contact.categories.map((cat: string) => <option key={cat} value={cat}>{cat}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-accent/40 pointer-events-none" size={20} />
+                  </div>
+                </div>
+                <button 
+                  type="button"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="p-4 bg-accent/10 border border-accent/20 rounded-xl text-accent hover:bg-accent hover:text-bg transition-all group"
+                  title="TOP"
+                >
+                  <ArrowUp size={24} className="group-hover:-translate-y-1 transition-transform" />
+                </button>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div><label className="block mono-label text-accent mb-4">{t.contact.labels.name}</label><input type="text" placeholder={t.contact.placeholders.name} className="w-full bg-accent/5 border border-accent/10 rounded-xl px-6 py-4 text-white outline-none focus:border-accent/30 transition-colors" /></div>
                 <div><label className="block mono-label text-accent mb-4">{t.contact.labels.email}</label><input type="email" placeholder={t.contact.placeholders.email} className="w-full bg-accent/5 border border-accent/10 rounded-xl px-6 py-4 text-white outline-none focus:border-accent/30 transition-colors" /></div>
               </div>
               <div><label className="block mono-label text-accent mb-4">{t.contact.labels.content}</label><textarea rows={4} placeholder={t.contact.placeholders.content} className="w-full bg-accent/5 border border-accent/10 rounded-xl px-6 py-4 text-white outline-none focus:border-accent/30 resize-none transition-colors" /></div>
-              <button className="w-full py-5 bg-accent text-bg rounded-full font-bold text-xl hover:scale-[1.02] transition-transform shadow-xl shadow-accent/10">{t.contact.submit}</button>
+              <button className="w-full py-5 bg-accent text-bg rounded-full font-bold text-xl hover:scale-[1.02] transition-transform shadow-xl shadow-accent/10 flex items-center justify-center gap-2">
+                {t.contact.submit} <Send size={20} />
+              </button>
             </form>
             <p className="mt-12 text-white/40 text-sm max-w-md mx-auto leading-relaxed">{t.contact.footer}</p>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
+      {/* Footer - 底部元素對齊整合 */}
       <footer className="py-20 px-6 border-t border-accent/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
             <div className="md:col-span-2">
               <h2 className="text-[36px] font-serif font-bold mb-6 text-white">子瓏 Zi Long</h2>
               <p className="text-white/60 leading-loose max-w-sm mb-8">{t.footer.desc}</p>
-              <div className="flex gap-6">
-                <a href="https://www.facebook.com/profile.php?id=61550052641350&locale=zh_TW" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><Facebook size={24} /></a>
-                <a href="https://www.instagram.com/avanda_7/" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><Instagram size={24} /></a>
-                <a href="https://www.threads.com/@avanda_7" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><AtSign size={24} /></a>
-              </div>
             </div>
             <div>
-              <span className="mono-label mb-6 block text-accent">{t.footer.nav}</span>
+              <span className="mono-label mb-6 block text-accent">Navigation</span>
               <ul className="space-y-4 text-white/70 text-lg">
-                <li><button onClick={scrollToContact} className="hover:text-accent">{t.footer.contact || "Contact"}</button></li>
-                <li><button onClick={() => setIsAuthorOpen(true)} className="hover:text-accent">{t.footer.about || "About"}</button></li>
+                <li><button onClick={scrollToContact} className="hover:text-accent">{t.nav.contact}</button></li>
+                <li><button onClick={() => setIsAuthorOpen(true)} className="hover:text-accent">{t.nav.about}</button></li>
               </ul>
             </div>
             <div>
@@ -517,21 +567,32 @@ export default function App() {
               <button onClick={() => setIsSubModalOpen(true)} className="w-full py-3 bg-accent text-bg rounded-lg font-bold hover:bg-accent/90 transition-colors">{t.footer.subBtn}</button>
             </div>
           </div>
-          <div className="pt-8 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-[10px] mono-label text-accent/40">{t.footer.rights}</p>
-            <p className="text-[10px] mono-label text-accent/40 uppercase tracking-widest">Rational Boundary Builder</p>
+          
+          {/* 底部整合容器：社群按鈕與語言切換 */}
+          <div className="pt-8 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex items-center gap-8">
+              <div className="flex gap-6">
+                <a href="https://www.facebook.com/profile.php?id=61550052641350&locale=zh_TW" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><Facebook size={24} /></a>
+                <a href="https://www.instagram.com/avanda_7/" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><Instagram size={24} /></a>
+                <a href="https://www.threads.com/@avanda_7" target="_blank" rel="noopener noreferrer" className="text-accent/60 hover:text-accent transition-colors"><AtSign size={24} /></a>
+              </div>
+              <div className="w-px h-6 bg-accent/20 hidden md:block" />
+              <div className="flex items-center gap-2 text-accent/60 hover:text-accent transition-all cursor-pointer">
+                <Globe size={20} />
+                <select value={lang} onChange={(e) => setLang(e.target.value)} className="bg-transparent outline-none text-xs font-bold cursor-pointer uppercase tracking-widest">
+                  <option value="zh">ZH</option>
+                  <option value="en">EN</option>
+                  <option value="ja">JA</option>
+                </select>
+              </div>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-[10px] mono-label text-accent/40 mb-1">{t.footer.rights}</p>
+              <p className="text-[10px] mono-label text-accent/40 uppercase tracking-widest">Rational Boundary Builder</p>
+            </div>
           </div>
         </div>
       </footer>
-
-      {/* TOP Button */}
-      <AnimatePresence>
-        {showTopBtn && (
-          <motion.button initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-8 right-8 z-[100] p-4 bg-accent text-bg rounded-full shadow-2xl hover:scale-110 transition-transform">
-            <ArrowUp size={24} />
-          </motion.button>
-        )}
-      </AnimatePresence>
 
       {/* Modals */}
       <AuthorModal isOpen={isAuthorOpen} onClose={() => setIsAuthorOpen(false)} lang={lang} />
