@@ -1,20 +1,5 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/0662aafd-eb00-43d5-b175-e8dece7b003e
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+{
+  "name": "子瓏 Zi Long | 理性的邊界建構者",
+  "description": "人性觀察者與心理敘事創作者。提供認知脫鉤、暗示過濾、理性接住與生存效率優化等核心價值，幫助讀者在別人的劇本之外，找回自己的選擇。",
+  "requestFramePermissions": []
+}

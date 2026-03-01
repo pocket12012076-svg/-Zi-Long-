@@ -1,84 +1,37 @@
-import { motion, AnimatePresence } from "motion/react";
-import { X } from "lucide-react";
+import { motion } from "motion/react";
 
-interface ValueDetailModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  content: {
-    section: string;
-    qa: { q: string; a: string; id: string }[];
-  }[];
-}
+export const CatIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="1.5" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+  >
+    <path d="M12 5c.67 0 1.33.12 1.94.34.42.15.82.38 1.18.67.36.29.67.64.91 1.04.24.4.4.84.47 1.3.07.46.07.93 0 1.39-.07.46-.23.9-.47 1.3-.24.4-.55.75-.91 1.04-.36.29-.76.52-1.18.67-.61.22-1.27.34-1.94.34s-1.33-.12-1.94-.34c-.42-.15-.82-.38-1.18-.67-.36-.29-.67-.64-.91-1.04-.24-.4-.4-.84-.47-1.3-.07-.46-.07-.93 0-1.39.07-.46.23-.9.47-1.3.24-.4.55-.75.91-1.04.36-.29.76-.52 1.18-.67.61-.22 1.27-.34 1.94-.34z" />
+    <path d="M15 5l1-2" />
+    <path d="M9 5L8 3" />
+    <path d="M12 14v5" />
+    <path d="M9 21h6" />
+    <path d="M17 11h2" />
+    <path d="M5 11h2" />
+  </svg>
+);
 
-export default function ValueDetailModal({ isOpen, onClose, title, content }: ValueDetailModalProps) {
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/95 backdrop-blur-xl"
-          />
-          
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="relative w-full max-w-4xl max-h-[85vh] bg-bg border border-accent/20 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
-          >
-            <div className="p-6 border-b border-accent/10 flex justify-between items-center bg-accent/5">
-              <h2 className="text-2xl font-serif font-bold text-accent">{title}</h2>
-              <button 
-                onClick={onClose}
-                className="p-2 hover:bg-accent/10 rounded-full transition-colors text-accent"
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-8 md:p-12 space-y-16 custom-scrollbar">
-              {content.map((section, sIdx) => (
-                <div key={sIdx} className="space-y-12">
-                  <h3 className="text-xl font-serif font-bold text-accent/80 border-l-4 border-accent pl-4">
-                    {section.section}
-                  </h3>
-                  <div className="space-y-16">
-                    {section.qa.map((item, qIdx) => (
-                      <div key={qIdx} className="space-y-6">
-                        <div className="flex items-start gap-4">
-                          <span className="text-2xl font-serif font-bold text-accent/40 shrink-0">{item.id}</span>
-                          <h4 className="text-[18px] font-serif font-medium leading-relaxed text-ink">
-                            {item.q}
-                          </h4>
-                        </div>
-                        <div className="pl-12 space-y-4">
-                          <span className="text-[18px] font-serif font-bold text-accent block">子瓏：</span>
-                          <p className="text-[22px] md:text-[24px] text-ink/80 leading-[1.8] whitespace-pre-line">
-                            {item.a}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            <div className="p-6 border-t border-accent/10 bg-accent/5 text-center">
-              <button 
-                onClick={onClose}
-                className="px-8 py-3 bg-accent text-bg rounded-full font-bold hover:scale-105 transition-all"
-              >
-                關閉內容
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
-}
+export const MinimalCat = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="1.2" 
+    className={className}
+  >
+    <path d="M12 18c-4 0-5-2-5-6s1-8 5-8 5 4 5 8-1 6-5 6z" />
+    <path d="M8 6L7 4M16 6l1-2" />
+    <circle cx="10" cy="11" r="0.5" fill="currentColor" />
+    <circle cx="14" cy="11" r="0.5" fill="currentColor" />
+    <path d="M12 13v1" />
+  </svg>
+);

@@ -1,96 +1,93 @@
-import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, BellRing, CheckCircle2 } from "lucide-react";
+import { X } from "lucide-react";
 
-interface SubscriptionModalProps {
+interface ValueDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  content: {
+    section: string;
+    qa: { q: string; a: string; id: string }[];
+  }[];
+  lang: string;
 }
 
-export default function SubscriptionModal({ isOpen, onClose }: SubscriptionModalProps) {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        onClose();
-        setEmail("");
-      }, 2000);
+export default function ValueDetailModal({ isOpen, onClose, title, content, lang }: ValueDetailModalProps) {
+  const t = {
+    zh: {
+      authorLabel: "子瓏：",
+      closeBtn: "關閉內容"
+    },
+    en: {
+      authorLabel: "Zi Long:",
+      closeBtn: "Close"
+    },
+    ja: {
+      authorLabel: "子瓏：",
+      closeBtn: "閉じる"
     }
-  };
+  }[lang as 'zh' | 'en' | 'ja'];
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div 
+          className="fixed inset-0 z-[100] overflow-y-auto bg-bg/80 backdrop-blur-md flex items-center justify-center p-4 py-12 md:py-20"
+          onClick={onClose}
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-bg/90 backdrop-blur-md"
-          />
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-md bg-bg border border-accent/20 rounded-3xl p-8 md:p-10 shadow-2xl text-center"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-4xl max-h-[85vh] bg-[#1A1A1A] border border-accent/30 rounded-3xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(0,0,0,0.5)]"
           >
-            <button 
-              onClick={onClose}
-              className="absolute top-6 right-6 p-2 hover:bg-accent/10 rounded-full transition-colors text-accent"
-            >
-              <X size={20} />
-            </button>
-
-            {isSubmitted ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-10"
+            <div className="p-6 border-b border-accent/10 flex justify-between items-center bg-accent/5">
+              <h2 className="text-2xl font-serif font-bold text-accent">{title}</h2>
+              <button 
+                onClick={onClose}
+                className="p-2 hover:bg-accent/10 rounded-full transition-colors text-accent"
               >
-                <CheckCircle2 size={64} className="text-accent mx-auto mb-6" />
-                <h2 className="text-2xl font-serif font-bold mb-2">訂閱成功</h2>
-                <p className="text-muted">我們將在有新筆記時第一時間通知你。</p>
-              </motion.div>
-            ) : (
-              <>
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center text-accent mx-auto mb-8">
-                  <BellRing size={32} />
-                </div>
-                
-                <h2 className="text-[18px] font-serif font-bold mb-4">訂閱子瓏</h2>
-                <p className="text-ink/60 mb-8 leading-relaxed">
-                  加入我們的深度察覺體系，定期接收關於心理主權與邊界建立的生存筆記。
-                </p>
+                <X size={24} />
+              </button>
+            </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <input 
-                    type="email" 
-                    required
-                    placeholder="輸入你的電子信箱"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-6 py-4 bg-accent/5 border border-accent/10 rounded-xl focus:outline-none focus:border-accent/30 transition-colors text-ink"
-                  />
-                  <button 
-                    type="submit"
-                    className="w-full py-4 bg-accent text-bg rounded-xl font-bold hover:bg-accent/90 transition-colors"
-                  >
-                    立即訂閱
-                  </button>
-                </form>
-                
-                <p className="mt-6 text-[10px] mono-label text-muted">
-                  我們承諾不發送垃圾郵件，你可以隨時取消訂閱。
-                </p>
-              </>
-            )}
+            <div className="flex-1 overflow-y-auto p-8 md:p-12 space-y-16 custom-scrollbar">
+              {content.map((section, sIdx) => (
+                <div key={sIdx} className="space-y-12">
+                  <h3 className="text-xl font-serif font-bold text-white/90 border-l-4 border-accent pl-4">
+                    {section.section}
+                  </h3>
+                  <div className="space-y-16">
+                    {section.qa.map((item, qIdx) => (
+                      <div key={qIdx} className="space-y-6">
+                        <div className="flex items-start gap-4">
+                          <span className="text-2xl font-serif font-bold text-accent/40 shrink-0">{item.id}</span>
+                          <h4 className="text-[18px] font-serif font-medium leading-relaxed text-white">
+                            {item.q}
+                          </h4>
+                        </div>
+                        <div className="pl-12 space-y-4">
+                          <span className="text-[18px] font-serif font-bold text-accent block">{t.authorLabel}</span>
+                          <p className="text-[22px] md:text-[24px] text-white/80 leading-[1.8]" style={{ whiteSpace: 'pre-wrap' }}>
+                            {item.a}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="p-6 border-t border-accent/10 bg-accent/5 text-center">
+              <button 
+                onClick={onClose}
+                className="px-8 py-3 bg-accent text-bg rounded-full font-bold hover:scale-105 transition-all"
+              >
+                {t.closeBtn}
+              </button>
+            </div>
           </motion.div>
         </div>
       )}

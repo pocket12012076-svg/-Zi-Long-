@@ -1,108 +1,99 @@
-import { motion } from "motion/react";
-import { Menu, X, Facebook, Instagram, AtSign } from "lucide-react";
-import { useState } from "react";
-import { MinimalCat } from "./Icons";
-import SubscriptionModal from "./SubscriptionModal";
-
-export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSubModalOpen, setIsSubModalOpen] = useState(false);
-
-  const navItems = [
-    { name: "聯絡我們", href: "#contact" },
-  ];
+export default function Footer({ lang }: { lang: string }) {
+  const t = {
+    zh: {
+      name: "子瓏 Zi Long",
+      desc: "理性的邊界建構者。致力於在紛擾的人性中，為你聽見被淹沒的聲音，找回你的選擇權。",
+      nav: "Navigation",
+      contact: "聯絡我們",
+      about: "關於作家-子瓏",
+      subscription: "Subscription",
+      subDesc: "訂閱《人性觀察週報》，每週一次理性覺察筆記。我們將深入探討認知主權與邊界建構。",
+      subBtn: "訂閱週報",
+      placeholder: "Your email",
+      rights: "© 2024 Zi Long. All Rights Reserved.",
+      tagline: "Designed for Rational Boundary Builders."
+    },
+    en: {
+      name: "Zi Long",
+      desc: "Rational boundary builder. Dedicated to hearing submerged voices and reclaiming your choices amidst the chaos of humanity.",
+      nav: "Navigation",
+      contact: "Contact",
+      about: "About Zi Long",
+      subscription: "Subscription",
+      subDesc: "Subscribe to the 'Humanity Observation Weekly' for weekly rational awareness notes. We explore cognitive sovereignty and boundary construction.",
+      subBtn: "Subscribe",
+      placeholder: "Your email",
+      rights: "© 2024 Zi Long. All Rights Reserved.",
+      tagline: "Designed for Rational Boundary Builders."
+    },
+    ja: {
+      name: "子瓏 Zi Long",
+      desc: "理性的な境界の構築者。人間性の喧騒の中で、かき消されたあなたの声を聞き取り、選択権を取り戻すお手伝いをします。",
+      nav: "ナビゲーション",
+      contact: "お問い合わせ",
+      about: "作家・子瓏について",
+      subscription: "購読",
+      subDesc: "『人間性観察週報』を購読して、週に一度の理性的気づきノートを受け取りましょう。認知的主権と境界構築を深く探求します。",
+      subBtn: "購読する",
+      placeholder: "メールアドレス",
+      rights: "© 2024 Zi Long. All Rights Reserved.",
+      tagline: "Designed for Rational Boundary Builders."
+    }
+  }[lang as 'zh' | 'en' | 'ja'];
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 border-b border-accent/10 bg-bg/80 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <MinimalCat className="w-6 h-6 text-accent" />
-          <span className="font-serif text-2xl font-bold tracking-widest">子瓏</span>
-          <div className="hidden md:block h-4 w-[1px] bg-border" />
-          <span className="hidden md:block mono-label">Rational Boundary Builder</span>
+    <footer className="py-20 px-6 border-t border-accent/10">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+          <div className="lg:col-span-2">
+            <h2 className="text-[36px] font-serif font-bold mb-6">{t.name}</h2>
+            <p className="text-ink/70 font-normal max-w-sm leading-[1.8] mb-8">
+              {t.desc}
+            </p>
+            <div className="flex gap-4">
+              {[
+                { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61550052641350&locale=zh_TW' },
+                { name: 'Instagram', href: 'https://www.instagram.com/avanda_7/' },
+                { name: 'Threads', href: 'https://www.threads.com/@avanda_7' }
+              ].map(social => (
+                <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-xs mono-label text-accent/60 hover:text-accent transition-colors">
+                  {social.name}
+                </a>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <span className="mono-label mb-6 block text-accent">{t.nav}</span>
+            <ul className="space-y-4 text-[18px] font-normal text-ink/70">
+              <li><a href="#contact" className="hover:text-accent">{t.contact}</a></li>
+              <li><a href="#about" className="hover:text-accent">{t.about}</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <span className="mono-label mb-6 block text-accent">{t.subscription}</span>
+            <p className="text-[14px] text-ink/60 mb-4 leading-relaxed">
+              {t.subDesc}
+            </p>
+            <div className="flex flex-col gap-3">
+              <input 
+                type="email" 
+                placeholder={t.placeholder}
+                className="bg-accent/5 border border-accent/20 rounded-lg px-4 py-3 text-sm text-ink focus:outline-none focus:border-accent/50 w-full"
+              />
+              <button className="px-4 py-3 bg-accent text-bg rounded-lg text-sm font-bold hover:bg-accent/90 transition-all">
+                {t.subBtn}
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-[18px] font-medium text-muted hover:text-accent transition-colors duration-300"
-            >
-              {item.name}
-            </a>
-          ))}
-          
-          <div className="flex items-center gap-4 border-l border-accent/10 pl-6">
-            <a href="https://www.facebook.com/profile.php?id=61550052641350&locale=zh_TW" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
-              <Facebook size={18} strokeWidth={1.5} />
-            </a>
-            <a href="https://www.instagram.com/avanda_7/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
-              <Instagram size={18} strokeWidth={1.5} />
-            </a>
-            <a href="https://www.threads.com/@avanda_7" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-accent transition-colors">
-              <AtSign size={18} strokeWidth={1.5} />
-            </a>
-          </div>
-
-          <button 
-            onClick={() => setIsSubModalOpen(true)}
-            className="px-5 py-2 border border-accent/30 rounded-full text-[18px] text-accent hover:bg-accent hover:text-bg transition-all duration-500"
-          >
-            訂閱子瓏
-          </button>
-        </nav>
-
-        <SubscriptionModal isOpen={isSubModalOpen} onClose={() => setIsSubModalOpen(false)} />
-
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden text-ink"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="pt-8 border-t border-accent/10 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-[10px] mono-label text-accent/40">{t.rights}</p>
+          <p className="text-[10px] mono-label text-accent/40">{t.tagline}</p>
+        </div>
       </div>
-
-      {/* Mobile Nav */}
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden absolute top-20 left-0 w-full bg-bg border-b border-border p-6 flex flex-col gap-6"
-        >
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-lg font-serif"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </a>
-          ))}
-          
-          <div className="flex items-center gap-6 py-4 border-y border-accent/10">
-            <a href="https://www.facebook.com/profile.php?id=61550052641350&locale=zh_TW" target="_blank" rel="noopener noreferrer" className="text-accent">
-              <Facebook size={24} strokeWidth={1.5} />
-            </a>
-            <a href="https://www.instagram.com/avanda_7/" target="_blank" rel="noopener noreferrer" className="text-accent">
-              <Instagram size={24} strokeWidth={1.5} />
-            </a>
-            <a href="https://www.threads.com/@avanda_7" target="_blank" rel="noopener noreferrer" className="text-accent">
-              <AtSign size={24} strokeWidth={1.5} />
-            </a>
-          </div>
-
-          <button 
-            onClick={() => setIsSubModalOpen(true)}
-            className="w-full py-4 border border-accent/30 rounded-xl text-sm text-accent"
-          >
-            訂閱子瓏
-          </button>
-        </motion.div>
-      )}
-    </header>
+    </footer>
   );
 }
