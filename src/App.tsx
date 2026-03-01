@@ -8,9 +8,54 @@ import {
 
 // --- 1. 預留詳細對話翻譯資料庫 (稍後補上) ---
 const VALUE_TRANSLATIONS_DATA: any = {
-  zh: { values: {} },
-  en: { values: {} },
-  ja: { values: {} }
+  zh: {
+    dialogues: {
+      Q1: { q: "從童年在圖書館集點讀書，到現在維持讀後書寫的習慣，閱讀似乎是妳生命中不曾間斷的節奏。在這個快節奏的時代，選擇慢讀、慢思，對妳而言有什麼樣的魅力？", a: "童年時在閱讀中獲得的成就感，源自於國小導師的要求。老師讓我們每週去圖書館選一本書，讀完後寫下心得就能集點，滿點後可以換取獎狀。這讓我們班經常集體上台領獎，我也在過程中發現，完成閱讀與書寫這件事本身就能帶來滿足感。\n這份節奏隨著我成長一直陪伴著我。現在回頭看，閱讀故事不只是吸收內容，它讓我能不斷地思考，並願意停下腳步將想法整理成文字。不知不覺中，書寫成了我了解自己、整理情緒，並與世界溝通的一種方式。", title: "閱讀的節奏" },
+      Q2: { q: "妳曾提到王永慶的一段話影響了妳對小說的看法，那是如何植入妳腦海的？為什麼妳至今仍相信「小說」具有救贖的力量？", a: "高中時，在王永慶的書中讀到，他認為小說是作者經驗的延伸。這讓我私下覺得，在小說的世界裡可以學到很多東西。長大後實用工具書盛行，但在觀察自己的過程中，我愈發覺得在小說建構的世界裡能學到的，遠比工具書來得多。\n\n虛構紮根於現實，講述的都是人與人的故事。小說有情境，我能跟著主角一起感受、驚訝，甚至察覺彼此的不同，並內化成自己的經驗。就像國小老師教我們寫「禮義廉恥」，但有多少人真的理解其中的含義？又有多少人真的在實踐呢？", title: "小說的力量" },
+      Q3: { q: "許多作家是為了「夢想」而下筆，但聽說妳的契機是一場「失望」所帶來的意外收穫？", a: "我曾讀到一本很紅的翻譯文學，讀完卻因為完全找不到共鳴而感到失望（當然，這與文化背景和個人偏好有關）。\n當時我就想：「如果這類型的作品能讓許多人產生共鳴，那我是不是也能寫出屬於自己風格的作品？」我甚至覺得，就算寫得不夠成熟也無妨，或許還能刺激別人產生「我也能寫」的動力，這樣看來，嘗試寫作怎樣都不算虧。", title: "失望的收穫" },
+      Q4: { q: "妳的作品中有一套很特殊的「人生劇本論」，這份靈感從何而來？", a: "當時我也在讀另一本書，書中提到孩子出生後仍保有與神對話的記憶。這讓我感覺人出生就是神的演員，各自帶著劇本來展開人生。也就是說，我們的靈魂本來是相親相愛的，只是喝了孟婆湯、演了戲，才影響了對彼此的態度。", title: "人生劇本論" },
+      Q5: { q: "第一次提筆的妳，是如何摸索出小說的節奏感？", a: "我只是因為讀了很多小說，所以動筆時直覺地知道哪裡該停頓、哪裡該切換場景。一開始我甚至不知道自己想表達什麼，只是「先寫再說」，事後才分章節。直到出版社定下書名，我才恍然大悟：對！我想說的是——「我不想被指手畫腳或說教，我想要被傾聽、被接住」。", title: "創作的節奏" },
+      Q6: { q: "妳的故事中似乎看不到希望，是因為妳觀察到這社會對受害者要求很高，例如要活得勵志，或是對受害者的表現有一定的看法？", a: "是的，我不想寫得太完美（簡單），我所謂的完美是，好像你只要求救了就會有人理你；你只要說「不」，對方就會停止；或是只要找到對的人就能獲獲救。因為在現實中，根本不會是那樣。\n其中一個令人失望的事，是社會對受傷的人有太多期待，總認為唯一出路是「活得勵志」，一旦你做不到，就被認為是你的問題。這讓我意識到其實很多人只是想看戲。這種期待會讓痛苦的人更困惑，因為總有人認為你活得不夠勵志，或認為你不可能這麼快走出來。但這其實都是一種「暗示」，我們都是在家庭和社會的暗示下長大，如果意識到自己的行為是受他人暗示的驅使，那麼脫掉這層外衣是必要的。只要察覺到了，你就有選擇權。", title: "社會的暗示" },
+      Q7: { q: "作品深受《第十四道門》中黑貓名言的影響——「我們知道自己是誰，所以不需要名字」。這如何連結到妳說的「當有人比妳更了解妳時，處境會變得很危險」？", a: "那句「我們知道自己是誰，所以不需要名字」就是我想說的「自我察覺」。這社會充滿了想幫你命名（暗示）的人，他們懷疑你的情緒，又要求你樂觀，甚至表現得比你還懂該怎麼痛。若你允許這些「名字」在身上紮根，你就離真正的自己越遠。\n透過自我察覺，我奪回了定義權。當我足夠了解自己，我就不再需要依賴別人給的名字，也有能力判斷對方的「行為」究竟是真心，還是純粹的惡意。\n我對人性其實是相當悲觀的。因為人終究是動物，在弱肉強食的潛意識基因裡，求救會被視為弱的表現。這也是危險所在——當你釋放弱點時，有些人會意識到你是可以被欺負的，甚至把求救者當成笨蛋，趁機操控你。但求救有很多種呈現方式，不一定都要傷痕累累、楚楚可憐. 有時候受傷太重，就像身體遭受重創，你連回應的力氣都沒有。這種「沉默的呼救」，其實很少人能看得出來。", title: "名字與定義權" },
+      Q8: { q: "在面對創傷帶來的負面情緒時，妳提到的「我就爛」態度，是一種什麼樣的心理策略？", a: "情緒是一種本能反應，而人身為動物無法控制本能是正常的。但情緒隨之帶來的是力量，那股力量能驅使我們的行為，也能傷害自己本身。\n所以當過往中，已成事實的傷痛又來襲擊你時，唯一能做的就是對那情緒坦白——或者說是「擺爛」：「我就是被如何了」、「我就是遭遇了什麼」。\n當你承認的當下，情緒就無法再操控你的行為或攻擊你的思想，壓力反而會獲得紓解。接下來，才談得上所謂的面對與放下。", title: "「我就爛」策略" },
+      Q9: { q: "這部作品中，隱藏了多少妳現實生活的「私物」？", a: "靈感不足時，我借用了在日本的生活經驗來豐富角色的背景。後來以為小說寫完了，開始寫短篇，發現其中幾篇真的寫得很好，就乾脆把其中一個角色改成詩人，把自己的詩放了進去。", title: "真實的私物" },
+      Q10: { q: "妳常說覺察會改變妳，當妳的思考產生質變時，會影響妳對這部處女作的看法嗎？", a: "我有把每次讀後感當成日記的習慣，心得代表那個年紀對那本書的看法。隨著成長，讀同一本書的心境一定會不同。這部小說也一樣，記錄了我三十歲時對社會與生命的看法，那是非常美好的。\n只是隨著文筆進步，我會看到這部小說更多缺點，但那也是留給未來的彩蛋。", title: "變動的視角" },
+      Q11: { q: "在「關於我成為作家的10個QA」採訪Q6中，妳提到「人是在暗示下長大」，有沒有甚麼例子可以讓人更深刻的體會到甚麼叫暗示呢？", a: "我遇過一個女孩，家裡重男輕女極深，母親因為懷了女孩導致被婆婆虐待、被丈夫背叛，所以媽媽把一切仇恨都發洩在女孩的身上，後來弟弟誕生了，一切暴力似乎可以停止了。但弟弟因為感受的到媽媽的怨恨也變得非常憎恨姊姊，甚至會動手打她。\n她跟我說她從不怪她弟弟，弟弟只是聽媽媽的話，是個孝順的孩子。她說她的媽媽並不知道她有多討厭她；她的弟弟不知道他其實很愛她。她認為他們姊弟都是乖孩子，她意識到這個家不需要她，所以滿足媽媽的暗示離得他們遠遠的，但他們姊弟誰都沒有錯。\n以上正如我所說的「人是在暗示下長大」，你認為那位姊姊究竟做錯了甚麼？可以讓她弟弟恨到如此？而弟弟又為何可以膨脹到無法無邊？", title: "暗示實例" },
+      Q12: { q: "呈上題，除了意識到暗示以外，讀者們也想知道還有甚麼其他保護自己的方式？", a: "試著讓感性無限延伸地去體會這世界所擁有的黑暗面並接受和承認；讓理性保有權利去看見世界的良善面。\n我不否認傷痛的存在、不合理化惡的行為，暴力是一定且必然的存在，但我也必須捍衛自己的理性，讓理性引領我活下去。\n這也許很矛盾且困難，但其實這樣可以給自己有很多權利去選擇你的下一步，就像Q1的姊姊選擇理性地離開和活下去。", title: "保護的方法" }
+    }
+  },
+  en: {
+    dialogues: {
+      Q1: { q: "From childhood reading in the library to writing habits now, reading is a rhythm in your life. In this fast era, what's the charm of slow reading for you?", a: "The sense of achievement I gained from reading in childhood stemmed from my elementary school tutor's requirements. Writing down thoughts after reading brought satisfaction. This rhythm accompanied me as I grew up. Writing became a way to understand myself and communicate with the world.", title: "Reading Rhythm" },
+      Q2: { q: "Why do you believe 'novels' have the power of redemption?", a: "In high school, I felt that novels are an extension of experience. Fiction is rooted in reality, telling stories of people. I can follow the protagonist to feel and internalize them into my own experience. It's more effective than practical tool books.", title: "Power of Novels" },
+      Q3: { q: "Was your writing journey started by 'disappointment'?", a: "I once read a popular translated work but felt no resonance. I thought: 'If this resonates with many, can I write something in my own style?' Even if immature, it might inspire others to write. So, it's never a loss.", title: "Gain of Disappointment" },
+      Q4: { q: "Where did 'Life Script Theory' come from?", a: "I read that children retain memories of talking with God. This makes me feel people are born as God's actors with scripts. Our souls were originally loving, but acting in the play affected our attitudes.", title: "Life Script Theory" },
+      Q5: { q: "How did you find the rhythm for your first novel?", a: "I instinctively knew where to pause because I read many novels. At first, I just 'wrote first and talked later'. It wasn't until the title was decided that I realized: I want to be listened to and caught.", title: "Creation Rhythm" },
+      Q6: { q: "Why is there little hope in your stories?", a: "I don't want to write too perfectly. In reality, help isn't always there just because you ask. Society expects victims to 'live inspirationally', but many just want to watch the show. Awareness gives you the right to choose.", title: "Social Suggestions" },
+      Q7: { q: "How does 'We know who we are, so we don't need names' connect to danger?", a: "Self-awareness is key. Society wants to name you and doubt your emotions. By knowing myself, I take back the right to define. Humans are animals; asking for help can be seen as weakness, which is dangerous.", title: "Names and Definition" },
+      Q8: { q: "What is the 'I'm just bad' strategy?", a: "Emotion is an instinctive reaction. When past pain attacks, be honest with that emotion. The moment you admit it, emotion can no longer control your behavior. Pressure is relieved, allowing you to face and let go.", title: "I'm Just Bad" },
+      Q9: { q: "How much of your real life is in the work?", a: "I borrowed my living experience in Japan to enrich characters. I even changed a character to a poet and included my own poems.", title: "Real Private Items" },
+      Q10: { q: "Will your changing thoughts affect your view of this debut?", a: "Thoughts represent the view at a certain age. This novel records my views at thirty, which is beautiful. As skills improve, I'll see more shortcomings, but that's an Easter egg for the future.", title: "Changing Perspectives" },
+      Q11: { q: "Can you give an example of growing up under suggestions?", a: "I met a girl whose family favored boys. The mother vented hatred on her. The brother, feeling the mother's resentment, also hated her. They were all 'good children' following suggestions. Neither was 'wrong' in their own logic.", title: "Example of Suggestion" },
+      Q12: { q: "How can readers protect themselves?", a: "Let sensibility experience the dark side and admit it; let rationality see the goodness. I don't deny pain, but I must defend my rationality to live on. This gives you rights to choose your next step.", title: "Methods of Protection" }
+    }
+  },
+  ja: {
+    dialogues: {
+      Q1: { q: "図書館で本を読んでいた子供時代から現在まで、読書は人生のリズムのようです。この速い時代に、スローリーディングの魅力は何ですか？", a: "子供の頃の読書での達成感は、小学校の先生の要求から始まりました。感想を書くことで満足感を得ることを学びました。このリズムは成長しても私に寄り添い、執筆は自分を理解し世界と対話する方法となりました。", title: "読書のリズム" },
+      Q2: { q: "なぜ「小説」には救済の力があると信じているのですか？", a: "高校時代、小説は著者の経験の延長であると感じました。フィクションは現実に根ざし、人の物語を語ります。主人公と共に感じ、それを自分の経験として内面化できるのです。実用書よりも多くのことを学べます。", title: "小説の力" },
+      Q3: { q: "執筆のきっかけは「失望」だったのですか？", a: "ある人気作品に共感できず失望した時、「自分なりのスタイルの作品を書けるのではないか」と思いました。未熟であっても、誰かの書く動機になるかもしれない。そう考えれば損はありません。", title: "失望の収穫" },
+      Q4: { q: "「人生脚本論」はどこから来たのですか？", a: "子供は神と対話した記憶を保持しているという本を読みました。人間は神の役者として脚本を持って生まれてくるのだと感じました。魂はもともと愛し合っていたのです。", title: "人生脚本論" },
+      Q5: { q: "最初の小説のリズムはどう掴みましたか？", a: "多くの小説を読んでいたので、直感的に休止やシーンの切り替えが分かりました。最初はただ書き進め、タイトルが決まってから「聴いてほしい、受け止めてほしい」という思いに気づきました。", title: "創作のリズム" },
+      Q6: { q: "なぜ物語に希望が見えないのですか？", a: "完璧に書きすぎたくないからです。現実では、助けを求めれば必ず救われるわけではありません。社会は被害者に「励みになる生き方」を求めますが、それは一種の暗示です。気づきが選択権を与えます。", title: "社会の暗示" },
+      Q7: { q: "「名前は必要ない」という言葉と危険はどう結びつきますか？", a: "自己察覚が重要です。社会はあなたに名前を付け、感情を疑おうとします。自分を知ることで定義権を取り戻せます。人間は動物であり、助けを求めることが弱さと見なされる危険があります。", title: "名前と定義権" },
+      Q8: { q: "「私はダメだ」という戦略は何ですか？", a: "感情は本能的な反応です。過去の痛みが襲ってきた時、その感情に正直になってください。認めた瞬間、感情は行動を支配できなくなります。プレッシャーが解消され、向き合えるようになります。", title: "私はダメだ" },
+      Q9: { q: "実生活の「私物」はどれくらい隠されていますか？", a: "日本での生活経験をキャラクターの背景に借用しました。また、一人のキャラクターを詩人に変え、自分の詩を入れました。", title: "真実の私物" },
+      Q10: { q: "思考の変化はデビュー作への見方に影響しますか？", a: "感想はその年齢での見方を表します。この小説は三十歳の時の社会と人生への見方を記録した美しいものです。文章力が上がれば欠点も見えますが、それも未来への楽しみです。", title: "変化する視点" },
+      Q11: { q: "暗示の下で育つ例を教えてください。", a: "男尊女卑の激しい家庭の女の子に会いました。母親は彼女に憎しみをぶつけ、弟も母親の怨念を感じて姉を憎みました。彼らは暗示に従う「良い子」であり、彼らなりの論理では誰も「悪く」なかったのです。", title: "暗示の実例" },
+      Q12: { q: "自分を守るための他の方法はありますか？", a: "感性で闇を認め、理性で世界の善良さを見る権利を持ってください。痛みを否定せず、理性を守って生きる。それが次のステップを選ぶ権利を自分に与えることになります。", title: "保護の方法" }
+    }
+  }
 };
 
 // --- 2. 基礎圖示元件 ---
